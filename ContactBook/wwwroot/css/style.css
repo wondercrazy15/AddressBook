@@ -1,0 +1,141 @@
+/* common style */
+.btn:focus, .btn:active{
+    outline: 0;
+    border: 0;
+}
+.btn:focus-visible{
+    outline: 0; 
+}
+ul{
+    padding-left: 0;
+}
+li{
+list-style: none;
+}
+/* Contact-list css start */
+.card{
+    background-color:#f6f9fa ;
+    }
+
+.contact-list-wrap  .add-icon{
+    font-size: 24px;
+    cursor: pointer;
+    color: #7d95ab;
+}
+.contact-list-wrap .form-control:focus{
+outline: 0;
+box-shadow: none;
+}
+.search-control-wrap{
+    position: relative;
+}
+.search-control-wrap .btn{
+  position: absolute;
+  right: 0;
+  top: 0;      
+  border: 0;
+}   
+.search-control-wrap .btn img{
+    width: 20px;
+}
+.contact-list-wrap .page-header{
+background-color: #fff;
+border-radius: 5px;
+}
+.contact-list-wrap .contact-list .user-img img{
+width: 50px;
+height: 50px;
+border-radius: 100%;
+}
+.contact-list-wrap .contact-list .favourite-icon i{
+    color: #33ceff;
+}
+.contact-list-wrap .contact-list  .name{
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.contact-list-wrap .letter{
+font-size: 20px;
+color: #7d95ab;
+}
+
+.contact-list-wrap .user-list-wraper{
+    padding-left: 35px;
+}
+.contact-list-wrap .card-body{
+    height: 540px;
+    overflow-y: auto;
+}
+
+.contact-list-wrap .card-body .mobile p{
+font-size: 14px !important;
+}
+
+/* Contact-list css end */
+
+.edit-profile-wrap .user-img img{
+width: 70px;
+height: 70px;
+border-radius: 100%;
+}
+
+.edit-profile-wrap .card-header-wrap{
+    position: relative;
+}
+.edit-profile-wrap .card-header-wrap .user-img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -30px;
+    text-align: center;
+}
+
+.edit-profile-wrap .card-header-wrap .edit-btn{
+position: absolute;
+right: 0;
+font-weight: 600;
+font-size: 18px;
+top: 0;
+}
+
+.edit-profile-wrap  .card-body p{
+    color:#7d95ab ;
+}
+.edit-profile-wrap .card-img-top{
+height:160px;
+object-fit: cover;
+}
+
+.mobile p{
+    font-size: 14px;
+}
+.edit-profile-wrap .contact-details i{
+    color:#7d95ab ;
+}
+.edit-profile-wrap .contact-details a{
+    color: #252525;
+    text-decoration: none;
+}
+.edit-profile-wrap .social-feed .social{
+width: 30px;
+height: 30px;
+}
+.edit-profile-wrap .contact-details li:not(:last-child){
+    margin-bottom: 15px;
+}
+
+.edit-profile-card{
+    height: 650px;
+    overflow-y: auto;
+}
+
+.back-arrow {
+    position: absolute;
+    top: 0;
+    left: 5px
+}
+/* contact detail style */
+
+
