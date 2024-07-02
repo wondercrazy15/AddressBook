@@ -60,27 +60,12 @@
                     <div class="card bg-white mt-3 social-feed">
                         <div class="card-body">
                             <div class="user-info text-left ">
-                                <div class="d-flex gap-3">
-                                    <img src="~/images/facebook.png" alt="" class="social">
-                                    <div class="content">
-                                        <h6 class="card-title mb-0">Looking forward to the Mediterranean cruise today</h6>
-                                        <p class="mb-0">Santorini 2hr</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-white mt-3 social-feed">
-                        <div class="card-body">
-                            <div class="user-info text-left ">
-                                <div class="d-flex gap-3">
-                                    <img src="~/images/instagram.png" alt="" class="social">
-                                    <div class="content">
-                                        <h6 class="card-title mb-0">Beautiful sunset</h6>
-                                        <p class="">14 hr</p>
-                                        <img src="~/images/footer.jpg" alt="" class="img-fluid">
-                                    </div>
-                                </div>
+                                <div id="map" style="height: 300px; width:325px;"></div>
+                                @* <iframe width="600"
+                                height="450"
+                                frameborder="0" style="border:0"
+                                src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBUnzTclUzZs24Mi0fyWBbabOmWQpajm10&center=18.452932,73.865238&zoom=15" allowfullscreen>
+                                </iframe> *@
                             </div>
                         </div>
                     </div>
@@ -102,6 +87,8 @@
 
                 <div class="modal-body">
                     <input asp-for="contactsModel.Id" type="hidden" name="Id">
+                    <input asp-for="contactsModel.Longitude" type="hidden" name="Longitude">
+                    <input asp-for="contactsModel.Latitude" type="hidden" name="Latitude">
                     <div class="form-group row m-3">
                         <label for="Fname" class="col-2">First Name</label>
                         <div class="col-6">
@@ -185,6 +172,31 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+            var contact = @Html.Raw(Json.Serialize(Model.contactsModel));
+
+            var mapOptions = {
+                center: { lat: contact.latitude, lng: contact.longitude },
+                zoom: 15
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            var URL = 'data:image/jpeg;base64,' + contact.imageUrl + ' '
+
+            var profileImage = {
+                url: URL,
+                size: new google.maps.Size(50, 50),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(25, 50),
+                scaledSize: new google.maps.Size(50, 50)
+            };
+
+            var marker = new google.maps.Marker({
+                position: { lat: contact.latitude, lng: contact.longitude },
+                map: map,
+                title: contact.address,
+                icon: profileImage
+            });
+
             $('#exampleModal').on('shown.bs.modal', function () {
                 var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_address_input'), {
                     types: ['geocode']
@@ -192,7 +204,10 @@
 
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
-                    console.log(place);
+
+                    $('#contactsModel_Longitude').val(place.geometry.location.lng());
+                    $('#contactsModel_Latitude').val(place.geometry.location.lat());
+
                 });
             });
         });

@@ -26,8 +26,6 @@
                                         <img src="images/search-icon.svg" alt="">
                                     </button>
                                 </div>
-                                <input type="text" class="form-control" id="search_input" placeholder="Type address..." name="Address" />
-
                             </form>
                         </div>
 
@@ -88,6 +86,8 @@
 
                 <div class="modal-body">
                     <input asp-for="contactsModel.Id" type="hidden" name="Id">
+                    <input asp-for="contactsModel.Longitude" type="hidden" name="Longitude">
+                    <input asp-for="contactsModel.Latitude" type="hidden" name="Latitude">
                     <div class="form-group row m-3">
                         <label for="Fname" class="col-2">First Name</label>
                         <div class="col-6">
@@ -180,10 +180,24 @@
 
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
-                    console.log(place);
+
+                    $('#contactsModel_Longitude').val(place.geometry.location.lng());
+                    $('#contactsModel_Latitude').val(place.geometry.location.lat());
+
+                    // Initialize Google Map
+                    var mapOptions = {
+                        center: place.geometry.location,
+                        zoom: 15
+                    };
+                    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+                    marker = new google.maps.Marker({
+                        position: place.geometry.location,
+                        map: map,
+                        title: place.name
+                    });
                 });
             });
-
 
             var searchInput = $('#searchInput');
 

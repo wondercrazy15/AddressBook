@@ -47,39 +47,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/contacts.js"></script>
 
-    <script>
-        var searchInput = 'search_input';
-
-        $(document).ready(function () {
-
-            $('#exampleModal').on('shown.bs.modal', function () {
-                setTimeout(function () {
-                    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_input'), {
-                        types: ['geocode']
-                    });
-                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                        var place = autocomplete.getPlace();
-                        console.log(place); // Check place object in console
-                    });
-                }, 200); // Adjust delay as needed
-            });
-
-
-
-
-            var autocomplete;
-            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-                types: ['geocode'],
-                /*componentRestrictions: {
-                 country: "USA"
-                }*/
-            });
-
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var near_place = autocomplete.getPlace();
-            });
-        });
-    </script>
+    
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
