@@ -12,6 +12,17 @@
     <link href="~/css/font-awesome/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="~/css/style.css" rel="stylesheet" />
+    <!-- Google Maps JavaScript library -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyBUnzTclUzZs24Mi0fyWBbabOmWQpajm10"></script>
+    <style>
+        div.pac-container {
+            z-index: 999 !important;
+        }
+
+        .modal-backdrop.show{
+            z-index: -1 !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -35,6 +46,41 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/contacts.js"></script>
+
+    <script>
+        var searchInput = 'search_input';
+
+        $(document).ready(function () {
+
+            $('#exampleModal').on('shown.bs.modal', function () {
+                setTimeout(function () {
+                    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_input'), {
+                        types: ['geocode']
+                    });
+                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                        var place = autocomplete.getPlace();
+                        console.log(place); // Check place object in console
+                    });
+                }, 200); // Adjust delay as needed
+            });
+
+
+
+
+            var autocomplete;
+            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                types: ['geocode'],
+                /*componentRestrictions: {
+                 country: "USA"
+                }*/
+            });
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var near_place = autocomplete.getPlace();
+            });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

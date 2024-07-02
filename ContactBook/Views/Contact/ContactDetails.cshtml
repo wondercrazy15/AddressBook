@@ -1,6 +1,7 @@
 ﻿@model ContactBook.Models.ContactModel
 
 @{
+    ViewData["Title"] = "ContactDetails";
     Layout = "~/views/shared/_layout.cshtml";
 }
 
@@ -90,7 +91,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade pac-container" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form asp-action="SaveContact" asp-controller="Contact" id="contactform" method="post" enctype="multipart/form-data">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -154,7 +155,7 @@
                     <div class="form-group row m-3">
                         <label for="Lname" class="col-2">Address</label>
                         <div class="col-6">
-                            <textarea asp-for="contactsModel.Address" type="text" class="form-control" cols="5" maxlength="4000" name="Address"></textarea>
+                            <input asp-for="contactsModel.Address" type="text" class="form-control" id="search_address_input" placeholder="Type address..." name="Address" />
                         </div>
                     </div>
                     <div class="form-group row m-3">
@@ -180,3 +181,22 @@
         </div>
     </form>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#exampleModal').on('shown.bs.modal', function () {
+                var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_address_input'), {
+                    types: ['geocode']
+                });
+
+                autocomplete.addListener('place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    console.log(place);
+                });
+            });
+        });
+    </script>
+}
+
+

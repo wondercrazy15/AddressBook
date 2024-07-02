@@ -19,7 +19,6 @@ function readImage(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            debugger
             $('#displayImage').attr('src', e.target.result);
             $($("#contactsModel_ImageUrl")[0]).val(e.target.result)
         }
@@ -27,4 +26,5 @@ function readImage(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
 
